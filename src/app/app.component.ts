@@ -49,7 +49,7 @@ export class AppComponent implements OnInit {
       };
       this.databaseService.modificar(usuarioModificado, usuarioModificado.userId).subscribe({
         next: (response) => {
-          if (response && response['resultado'] === 'OK') {
+          if (response && response['message'] === 'OK') {
             alert('Usuario modificado con éxito');
             this.usuarioSeleccionado = null; // Ocultar el formulario después de modificar
             this.recuperarUsuarios(); // Actualizar la lista de usuarios
@@ -81,14 +81,16 @@ export class AppComponent implements OnInit {
       this.databaseService.alta(usuarioData).subscribe({
         next: (response) => {
           // Si la respuesta es correcta y el servidor indica que el usuario fue creado
-          if (response && response['resultado'] === 'OK') {
+          console.log('Respuesta del servidor:', response); // Añade este log
+          if (response && response['message'] == 'OK') {
             alert('Usuario creado con éxito');  // Se muestra un mensaje de éxito
             this.usuarioForm.reset();  // Se resetea el formulario
             this.recuperarUsuarios();  // Se actualiza la lista de usuarios
-          } else {
-            // Si hay un error, se muestra el mensaje recibido del servidor
-            alert('Error al crear usuario: ' + (response['mensaje'] || 'Error desconocido'));
-          }
+          }  else if (response && response['mensaje']) {
+            alert('Error al modificar usuario: ' + response['mensaje']);
+        } else {
+            alert('Error al modificar usuario: Respuesta inesperada del servidor');
+        }
         },
         error: (error) => {
           // En caso de error, se muestra un mensaje de error
@@ -124,7 +126,7 @@ export class AppComponent implements OnInit {
   bajaUsuario(userId: number) {
     this.databaseService.baja(userId).subscribe({
       next: (response) => {
-        if (response['resultado'] === 'OK') {
+        if (response['message'] === 'OK') {
           alert('Usuario borrado con éxito');
           this.recuperarUsuarios();
         } else {
