@@ -18,13 +18,13 @@ export class DatabaseService {
     return this.http.get(`${this.apiUrl}`);
   }
 
-  baja(IdUsuarios: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}?IdUsuarios=${IdUsuarios}`);
+  baja(userId: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}?userId=${userId}`);
   }
   
   // Nuevo método para modificar un usuario
-  modificar(usuario: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}`, usuario);
+  modificar(usuario: any, userId: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}?userId=${userId}`,usuario)
   }
 }
 

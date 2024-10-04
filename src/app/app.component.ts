@@ -15,18 +15,18 @@ export class AppComponent implements OnInit {
   usuarioSeleccionado: any = null; // Variable para almacenar el usuario seleccionado
 
   constructor(private databaseService: DatabaseService, private fb: FormBuilder) {
-    // Inicializamos el formulario con tres campos: NombreUsuario, Mail y Clave
+    // Inicializamos el formulario con tres campos: username, mail y password
     this.usuarioForm = this.fb.group({
-      NombreUsuario: ['', Validators.required],  // Campo obligatorio
-      Mail: ['', [Validators.required, Validators.email]],  // Campo obligatorio y validación de formato de email
-      Clave: ['', [Validators.required, Validators.minLength(6)]],  // Campo obligatorio con longitud mínima de 6 caracteres
+      username: ['', Validators.required],  // Campo obligatorio
+      mail: ['', [Validators.required, Validators.email]],  // Campo obligatorio y validación de formato de email
+      password: ['', [Validators.required, Validators.minLength(6)]],  // Campo obligatorio con longitud mínima de 6 caracteres
     });
 
      // Formulario de modificación de usuarios
-     this.modificarUsuarioForm = this.fb.group({
-      NombreUsuario: ['', Validators.required],
-      Mail: ['', [Validators.required, Validators.email]],
-      Clave: ['', [Validators.required, Validators.minLength(6)]],
+    this.modificarUsuarioForm = this.fb.group({
+      username: ['', Validators.required],
+      mail: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
   
@@ -34,9 +34,9 @@ export class AppComponent implements OnInit {
    editarUsuario(usuario: any) {
     this.usuarioSeleccionado = usuario;
     this.modificarUsuarioForm.patchValue({
-      NombreUsuario: usuario.NombreUsuario,
-      Mail: usuario.Mail,
-      Clave: usuario.Clave
+      username: usuario.username,
+      mail: usuario.mail,
+      password: usuario.password
     });
   }
 
@@ -47,7 +47,7 @@ export class AppComponent implements OnInit {
         ...this.usuarioSeleccionado,
         ...this.modificarUsuarioForm.value
       };
-      this.databaseService.modificar(usuarioModificado).subscribe({
+      this.databaseService.modificar(usuarioModificado, usuarioModificado.userId).subscribe({
         next: (response) => {
           if (response && response['resultado'] === 'OK') {
             alert('Usuario modificado con éxito');
@@ -59,6 +59,7 @@ export class AppComponent implements OnInit {
         },
         error: (error) => {
           alert('Error al modificar usuario');
+          console.log(usuarioModificado)
           console.error('Error:', error);
         },
       });
@@ -120,8 +121,8 @@ export class AppComponent implements OnInit {
     });
   }
 
-  bajaUsuario(IdUsuarios: number) {
-    this.databaseService.baja(IdUsuarios).subscribe({
+  bajaUsuario(userId: number) {
+    this.databaseService.baja(userId).subscribe({
       next: (response) => {
         if (response['resultado'] === 'OK') {
           alert('Usuario borrado con éxito');

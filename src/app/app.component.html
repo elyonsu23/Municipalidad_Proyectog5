@@ -5,33 +5,33 @@
         <!-- El formGroup 'usuarioForm' está enlazado con el formulario. Cuando se envía el formulario, se ejecuta la función 'submitForm()' -->
 
         <div>
-            <label for="NombreUsuario">Nombre:</label>
+            <label for="username">Nombre:</label>
 
-            <!-- Input que utiliza 'formControlName' para enlazar el campo 'NombreUsuario' del formulario reactivo -->
-            <input id="NombreUsuario" formControlName="NombreUsuario" type="text" />
+            <!-- Input que utiliza 'formControlName' para enlazar el campo 'username' del formulario reactivo -->
+            <input id="username" formControlName="username" type="text" />
 
             <!-- Validación: si el campo es inválido y ha sido tocado, se muestra un mensaje de error -->
-            <div *ngIf="usuarioForm.get('NombreUsuario')?.invalid && usuarioForm.get('NombreUsuario')?.touched">
+            <div *ngIf="usuarioForm.get('username')?.invalid && usuarioForm.get('username')?.touched">
                 Nombre es requerido
             </div>
         </div>
 
         <div>
-            <label for="Mail">Mail:</label>
-            <input id="Mail" formControlName="Mail" type="email" />
+            <label for="mail">mail:</label>
+            <input id="mail" formControlName="mail" type="email" />
 
             <!-- Validación: si el campo es inválido (por ejemplo, un formato de email incorrecto) y ha sido tocado, se muestra un mensaje de error -->
-            <div *ngIf="usuarioForm.get('Mail')?.invalid && usuarioForm.get('Mail')?.touched">
+            <div *ngIf="usuarioForm.get('mail')?.invalid && usuarioForm.get('mail')?.touched">
                 Ingresa un email válido
             </div>
         </div>
 
         <div>
-            <label for="Clave">Clave:</label>
-            <input id="Clave" formControlName="Clave" type="password" />
+            <label for="password">password:</label>
+            <input id="password" formControlName="password" type="password" />
 
             <!-- Validación: si la clave es inválida (por ejemplo, si tiene menos de 6 caracteres) y el campo ha sido tocado, se muestra un mensaje de error -->
-            <div *ngIf="usuarioForm.get('Clave')?.invalid && usuarioForm.get('Clave')?.touched">
+            <div *ngIf="usuarioForm.get('password')?.invalid && usuarioForm.get('password')?.touched">
                 La clave debe tener al menos 6 caracteres
             </div>
         </div>
@@ -45,24 +45,24 @@
     <table>
         <thead>
             <tr>
-                <th>IdUsuarios</th>
+                <th>userId</th>
                 <th>Nombre</th>
-                <th>Mail</th>
-                <th>Clave</th>
+                <th>mail</th>
+                <th>password</th>
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let usuario of usuarios">
-                <td>{{ usuario.IdUsuarios }}</td>
-                <td>{{ usuario.NombreUsuario }}</td>
-                <td>{{ usuario.Mail }}</td>
-                <td>{{ usuario.Clave }}</td>
+                <td>{{ usuario.userId }}</td>
+                <td>{{ usuario.username }}</td>
+                <td>{{ usuario.mail }}</td>
+                <td>{{ usuario.password }}</td>
                 <td>
 
                     <!-- Botón para borrar el usuario -->
                     <button (click)="editarUsuario(usuario)">Modificar</button>
-                    <button (click)="bajaUsuario(usuario.IdUsuarios)">Borrar</button>
+                    <button (click)="bajaUsuario(usuario.userId)">Borrar</button>
                 </td>
             </tr>
         </tbody>
@@ -72,17 +72,17 @@
     <form *ngIf="usuarioSeleccionado" [formGroup]="modificarUsuarioForm" (ngSubmit)="submitModificarForm()">
         <div>
             <label for="modificarNombre">Nombre:</label>
-            <input id="modificarNombre" formControlName="NombreUsuario" type="text" />
+            <input id="modificarNombre" formControlName="username" type="text" />
         </div>
 
         <div>
-            <label for="modificarMail">Mail:</label>
-            <input id="modificarMail" formControlName="Mail" type="email" />
+            <label for="modificarMail">mail:</label>
+            <input id="modificarMail" formControlName="mail" type="email" />
         </div>
 
         <div>
-            <label for="modificarClave">Clave:</label>
-            <input id="modificarClave" formControlName="Clave" type="password" />
+            <label for="modificarClave">password:</label>
+            <input id="modificarClave" formControlName="password" type="password" />
         </div>
 
         <button type="submit" [disabled]="modificarUsuarioForm.invalid">Guardar Cambios</button>
