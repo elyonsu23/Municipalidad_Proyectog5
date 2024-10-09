@@ -6,7 +6,6 @@ import { AdminComponent } from './pages/admin/admin.component';
 import { TableComponent } from './components/table/table.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from "@angular/forms";
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -18,7 +17,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AdminRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+
   ]
 })
 export class AdminModule { }
