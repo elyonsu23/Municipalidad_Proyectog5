@@ -1,1 +1,32 @@
-<p>navbar works!</p>
+<div class="divToolbar">
+    <mat-toolbar>
+        <mat-toolbar-row>            
+            <span>Sistema de gestion de usuarios </span>
+            <span class="example-spacer"></span>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    
+    <div class="divider"></div>
+  
+    <mat-toolbar>
+        <mat-toolbar-row>
+
+            <mat-icon>lock_open</mat-icon>
+            <button id="menuProducto" mat-button [matMenuTriggerFor]="seguridad">Seguridad</button>
+            <mat-menu #seguridad="matMenu">
+                <button mat-menu-item routerLink="/usuario">Usuarios</button>
+                <button mat-menu-item routerLink="/grupos">Grupos</button>
+                <button mat-menu-item routerLink="/funciones">Funciones</button>
+            </mat-menu>
+            
+
+            <mat-icon>logout</mat-icon>
+            <button mat-button routerLink="/login">Salir</button>
+    
+    
+        </mat-toolbar-row>
+    </mat-toolbar>
+</div>
+
+
+

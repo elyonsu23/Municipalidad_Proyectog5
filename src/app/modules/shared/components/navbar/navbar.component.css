@@ -1,0 +1,26 @@
+.example-icon {
+    padding: 0 14px;
+}
+
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+mat-toolbar {
+    background-color: #a8cf45;
+    color: #002975;
+}
+
+.divider{
+    width: 98%;
+    height: 1px;
+    margin: 0 auto;
+    background-color: #002975
+}
+
+.divToolbar{
+    background-color: #a8cf45;
+    
+    border-bottom: 1px solid #002975;
+}
+
