@@ -1,0 +1,16 @@
+.divPadre{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100px;
+    width: 200px
+}
+.borde{
+    border: 1px solid rgb(16, 184, 36);
+
+}
+.tablaPadre{
+    align-items: center;
+    justify-content: center;
+}

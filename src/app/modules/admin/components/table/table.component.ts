@@ -106,7 +106,7 @@ export class TableComponent implements OnInit{
   
     // Método para recuperar la lista de usuarios de la base de datos
     recuperarUsuarios() {
-      this.databaseService.recuperar().subscribe({
+      this.databaseService.recuperarUsuarios().subscribe({
         next: (response) => {
           // Verificamos que la respuesta sea un array antes de asignarlo a la variable 'usuarios'
           if (Array.isArray(response)) {
