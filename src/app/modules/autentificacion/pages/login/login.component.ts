@@ -3,6 +3,7 @@ import { DatabaseService } from 'src/app/database.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router'
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -21,6 +22,8 @@ export class LoginComponent {
       password: ['', Validators.required],
     });
   }
+
+  
 
   onSubmit() {
     console.log('Formulario enviado'); 

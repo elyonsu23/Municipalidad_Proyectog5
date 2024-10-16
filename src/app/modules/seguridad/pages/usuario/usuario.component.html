@@ -1,1 +1,130 @@
-<p>usuario works!</p>
+<div class="divPadre">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createUser">
+     Crear
+    </button>
+    <table class="borde tablaPadre">
+        <thead class="borde">
+            <tr class="borde">
+                <th class="borde">ID</th>
+                <th class="borde">NOMBRE</th>
+                <th class="borde">MAIL</th>
+                <th class="borde">PASSWORD</th>
+                <th class="borde">GRUPO</th>
+                <th class="borde">ACCIONES</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="borde" *ngFor="let usuario of usuarios" n>
+                <td class="borde">{{ usuario.userId }}</td>
+                <td class="borde">{{ usuario.username }}</td>
+                <td class="borde">{{ usuario.mail }}</td>
+                <td class="borde">{{ usuario.password }}</td>
+                <td class="borde"> {{ obtenerDescripcionGrupo(usuario.grupoId) }}
+                </td>
+                <td>
+                    <button  type="button" class="edit btn btn-primary "  (click)="editarUsuario(usuario)" data-bs-target="#editUser"
+                        data-bs-toggle="modal">Modificar</button>
+                    <button  type="button" class="delete btn btn-primary" (click)="bajaUsuario(usuario.userId)">Borrar</button>
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Modal para crear usuario -->
+    <div class="modal fade " id="createUser" tabindex="-1" aria-labelledby="createUserLabel" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen-sm-down ">
+            <div class="modal-content m">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createUserlLabel">Crear Usuario</h5>
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="usuarioForm" (ngSubmit)="submitForm()">
+                        <div>
+                            <label for="username">Nombre:</label>
+                            <input id="username" formControlName="username" type="text" />
+                            <div *ngIf="usuarioForm.get('username')?.invalid && usuarioForm.get('username')?.touched">
+                                Nombre es requerido
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="mail">Mail:</label>
+                            <input id="mail" formControlName="mail" type="email" />
+                            <div *ngIf="usuarioForm.get('mail')?.invalid && usuarioForm.get('mail')?.touched">
+                                Ingresa un email válido
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="password">Password:</label>
+                            <input id="password" formControlName="password" type="password" />
+                            <div *ngIf="usuarioForm.get('password')?.invalid && usuarioForm.get('password')?.touched">
+                                La clave debe tener al menos 6 caracteres
+                            </div>
+                        </div>
+
+                        <label for="grupo">Seleccionar Grupo:</label>
+                        <div>
+                            <div *ngFor="let grupo of grupos">
+                                <!-- [value]="grupo.idGrupo" Asigna el valor de este radio button al idGrupo del objeto grupo. Esto es lo que se enviará al formulario cuando este radio button esté seleccionado. -->
+                                <input type="radio" [value]="grupo.idGrupo" formControlName="grupoId"
+                                    [id]="'grupo-' + grupo.idGrupo" />
+                                <label [for]="'grupo-' + grupo.idGrupo">{{ grupo.descripcion }}</label>
+                            </div>
+                        </div>
+
+
+                        <button type="submit" [disabled]="usuarioForm.invalid">Enviar</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade " id="editUser" tabindex="-1" aria-labelledby="editUserLabel" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen-sm-down ">
+            <div class="modal-content m">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editUserlLabel">Modificar Usuario</h5>
+                </div>
+                <div class="modal-body">
+                    <form *ngIf="usuarioSeleccionado" [formGroup]="modificarUsuarioForm"
+                        (ngSubmit)="submitModificarForm()">
+                        <div>
+                            <label for="modificarNombre">Nombre:</label>
+                            <input id="modificarNombre" formControlName="username" type="text" />
+                        </div>
+
+                        <div>
+                            <label for="modificarMail">mail:</label>
+                            <input id="modificarMail" formControlName="mail" type="email" />
+                        </div>
+
+                        <div>
+                            <label for="modificarClave">password:</label>
+                            <input id="modificarClave" formControlName="password" type="password" />
+                        </div>
+
+                        <label for="grupo">Seleccionar Grupo:</label>
+                        <div>
+                            <div *ngFor="let grupo of grupos">
+                                <!-- [value]="grupo.idGrupo" Asigna el valor de este radio button al idGrupo del objeto grupo. Esto es lo que se enviará al formulario cuando este radio button esté seleccionado. -->
+                                <input type="radio" [value]="grupo.idGrupo" formControlName="grupoId"
+                                    [id]="'grupo-' + grupo.idGrupo" />
+                                <label [for]="'grupo-' + grupo.idGrupo">{{ grupo.descripcion }}</label>
+                            </div>
+                        </div>
+
+                        <button type="submit" [disabled]="modificarUsuarioForm.invalid" data-bs-dismiss="modal">Guardar
+                            Cambios</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

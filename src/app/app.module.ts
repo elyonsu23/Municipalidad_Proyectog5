@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 
+
 // COMPONENTE GLOBAL
 import { SharedModule } from './modules/shared/shared.module';
 
@@ -21,9 +22,11 @@ import { SharedModule } from './modules/shared/shared.module';
     HttpClientModule,
     // COMPONENTE GLOBAL
     SharedModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+ }

@@ -1,1 +1,78 @@
-<p>grupos works!</p>
+<div class="divPadre"> 
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createGroup">
+        Agregar
+    </button>
+    <table class="borde tablaPadre">
+        <thead class="borde">
+            <tr class="borde">
+                <th class="borde">ID</th>
+                <th class="borde">DESCRIPCIÓN</th>
+                <th class="borde">ACCIONES</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="borde" *ngFor="let grupo of grupos">
+                <td class="borde">{{ grupo.idGrupo }}</td>
+                <td class="borde">{{ grupo.descripcion}}</td>
+              
+                <td>
+                    <button class="edit" (click)="editarGrupo(grupo)" data-bs-target="#editGroup" data-bs-toggle="modal">Modificar</button>
+                    <button class="delete" (click)="bajaGrupos(grupo.idGrupo)" >Borrar</button>
+                   
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Modal para crear usuario -->
+    <div class="modal fade " id="createGroup" tabindex="-1" aria-labelledby="createGroupLabel" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen-sm-down ">
+            <div class="modal-content m">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createGrouplLabel">Crear Usuario</h5>
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="grupoForm" (ngSubmit)="submitForm()">
+                        <div>
+                            <label for="descripcion">Nombre:</label>
+                            <input id="descripcion" formControlName="descripcion" type="text" />
+                            <div *ngIf="grupoForm.get('descripcion')?.invalid && grupoForm.get('descripcion')?.touched">
+                                Nombre es requerido
+                            </div>
+                        </div>
+
+                        
+
+                        <button type="submit" [disabled]="grupoForm.invalid">Enviar</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade " id="editGroup" tabindex="-1" aria-labelledby="editGroupLabel" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen-sm-down ">
+            <div class="modal-content m">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editGroupLabel">Modificar Usuario</h5>
+                </div>
+                <div class="modal-body">
+                    <form *ngIf="grupoSeleccionado" [formGroup]="modificarGrupoForm" (ngSubmit)="submitModificarForm()">
+                        <div>
+                            <label for="modificardescripcion">descripcion:</label>
+                            <input id="modificardescripcion" formControlName="descripcion" type="text" />
+                        </div>
+                
+                       
+                
+                        <button type="submit" [disabled]="modificarGrupoForm.invalid" data-bs-dismiss="modal">Guardar Cambios</button>
+                    </form>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
