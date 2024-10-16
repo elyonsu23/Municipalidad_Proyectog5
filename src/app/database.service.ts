@@ -2,15 +2,17 @@ import { Injectable } from '@angular/core';  // Importa el decorador Injectable 
 import { HttpClient } from '@angular/common/http';  // Importa HttpClient para hacer peticiones HTTP
 import { Observable } from 'rxjs';  // Importa Observable para manejar las respuestas asincrónicas
 
+
 @Injectable({
   providedIn: 'root'  // Indica que este servicio estará disponible de manera global en la aplicación
 })
 export class DatabaseService {
-  
+
   // URL base de la API en el backend
   private apiUrl = 'http://localhost/apiviernes/public/index.php'; 
 
   constructor(private http: HttpClient) { }  // Inyecta HttpClient para usarlo en las peticiones
+
 
   // Método para crear un nuevo usuario en la base de datos (POST)
   alta(usuarioData: any): Observable<any> {
@@ -40,6 +42,11 @@ export class DatabaseService {
     // Envía una solicitud PUT a la URL 'http://localhost/apiviernes/public/index.php/users'
     // pasando el userId como parámetro en la URL, y los datos del usuario en el cuerpo de la solicitud
     return this.http.put(`${this.apiUrl}/users?userId=${userId}`, usuario);
+  }
+
+  // Nuevo método para iniciar sesión
+  iniciarSesion(credentials: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/users?action=login`, credentials);
   }
 
   // Método para crear un nuevo grupo (POST)
