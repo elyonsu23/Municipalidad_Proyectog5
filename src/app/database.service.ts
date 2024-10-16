@@ -25,6 +25,8 @@ export class DatabaseService {
     // para obtener la lista de usuarios
     return this.http.get(`${this.apiUrl}/users`);
   }
+  
+  
 
   // Método para eliminar un usuario de la base de datos (DELETE)
   baja(userId: number): Observable<any> {

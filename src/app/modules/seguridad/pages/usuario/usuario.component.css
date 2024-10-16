@@ -1,16 +1,134 @@
-.divPadre{
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    height: 100px;
-    width: 200px
+/* Estilos generales */
+.divPadre {
+    margin: 20px;
 }
-.borde{
-    border: 1px solid rgb(16, 184, 36);
 
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
 }
-.tablaPadre{
-    align-items: center;
-    justify-content: center;
+
+.borde {
+    border: 1px solid #ccc;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #a8cf45;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #a8cf45;
+}
+
+/* Estilos para los botones */
+button {
+    padding: 8px 12px;
+    margin: 5px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+button.btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+button.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+button.btn-secondary {
+    background-color: #a8cf45;
+    color: white;
+}
+
+button.btn-secondary:hover {
+    background-color:#a8cf45;
+}
+
+/* Estilos para el formulario */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form div {
+    margin-bottom: 10px;
+}
+
+
+
+form input[type="text"], form input[type="email"], form input[type="password"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Estilos para los radio buttons */
+input[type="radio"] {
+    margin-right: 5px;
+}
+
+label[for^="grupo-"] {
+    display: inline-block;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+input[type="radio"]:checked + label {
+    color: #007bff;
+    font-weight: bold;
+}
+
+/* Estilos para los modales */
+.modal-content {
+    padding: 20px;
+}
+
+.modal-header {
+    background-color: #a8cf45;
+    padding: 15px;
+    border-bottom: 1px solid #ccc;
+}
+
+.modal-title {
+    margin: 0;
+    font-size: 1.5em;
+}
+
+.modal-body {
+    padding: 15px;
+}
+
+.modal-footer {
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+button[data-bs-dismiss="modal"] {
+    background-color: #007bff;
+    color: white;
+}
+
+button[data-bs-dismiss="modal"]:hover {
+    background-color: #007bff;
+}
+.delete{
+    background-color: #ff5263 !important  ;
+    color: white !;
+}
+.edit{
+    background-color: #007bff !important;
+    color: white ;
 }

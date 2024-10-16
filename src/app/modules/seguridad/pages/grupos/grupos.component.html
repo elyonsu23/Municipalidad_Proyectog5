@@ -5,9 +5,9 @@
     <table class="borde tablaPadre">
         <thead class="borde">
             <tr class="borde">
-                <th class="borde">idGrupo</th>
-                <th class="borde">descripcion</th>
-                
+                <th class="borde">ID</th>
+                <th class="borde">DESCRIPCIÓN</th>
+                <th class="borde">ACCIONES</th>
             </tr>
         </thead>
         <tbody>
@@ -16,8 +16,8 @@
                 <td class="borde">{{ grupo.descripcion}}</td>
               
                 <td>
-                    <button (click)="editarGrupo(grupo)" data-bs-target="#editGroup" data-bs-toggle="modal">Modificar</button>
-                    <button (click)="bajaGrupos(grupo.idGrupo)" >Borrar</button>
+                    <button class="edit" (click)="editarGrupo(grupo)" data-bs-target="#editGroup" data-bs-toggle="modal">Modificar</button>
+                    <button class="delete" (click)="bajaGrupos(grupo.idGrupo)" >Borrar</button>
                    
                 </td>
             </tr>

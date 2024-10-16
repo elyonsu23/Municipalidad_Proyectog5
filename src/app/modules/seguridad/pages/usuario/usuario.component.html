@@ -1,16 +1,16 @@
 <div class="divPadre">
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createUser">
-        Agregar
+     Crear
     </button>
     <table class="borde tablaPadre">
         <thead class="borde">
             <tr class="borde">
-                <th class="borde">userId</th>
-                <th class="borde">Nombre</th>
-                <th class="borde">mail</th>
-                <th class="borde">password</th>
-                <th class="borde">Grupo</th>
-                <th class="borde">Acciones</th>
+                <th class="borde">ID</th>
+                <th class="borde">NOMBRE</th>
+                <th class="borde">MAIL</th>
+                <th class="borde">PASSWORD</th>
+                <th class="borde">GRUPO</th>
+                <th class="borde">ACCIONES</th>
             </tr>
         </thead>
         <tbody>
@@ -22,9 +22,9 @@
                 <td class="borde"> {{ obtenerDescripcionGrupo(usuario.grupoId) }}
                 </td>
                 <td>
-                    <button (click)="editarUsuario(usuario)" data-bs-target="#editUser"
+                    <button  type="button" class="edit btn btn-primary "  (click)="editarUsuario(usuario)" data-bs-target="#editUser"
                         data-bs-toggle="modal">Modificar</button>
-                    <button (click)="bajaUsuario(usuario.userId)">Borrar</button>
+                    <button  type="button" class="delete btn btn-primary" (click)="bajaUsuario(usuario.userId)">Borrar</button>
 
                 </td>
             </tr>
