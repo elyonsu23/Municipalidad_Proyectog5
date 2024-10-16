@@ -26,5 +26,10 @@ export class DatabaseService {
   modificar(usuario: any, userId: any): Observable<any> {
     return this.http.put(`${this.apiUrl}?userId=${userId}`,usuario)
   }
-}
 
+  // Nuevo método para iniciar sesión
+  iniciarSesion(credentials: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}?action=login`, credentials);  
+  }
+
+}
