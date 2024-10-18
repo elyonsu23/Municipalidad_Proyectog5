@@ -6,7 +6,7 @@
         </div>
         <div class="form-container">
             <h1>Iniciar Sesión</h1>
-            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)">
             <mat-form-field appearance="fill">
                 <mat-label>Ingrese su email:</mat-label>
                 <input matInput placeholder="Ej: pepitoperez2022@gmail.com" formControlName="mail" required>

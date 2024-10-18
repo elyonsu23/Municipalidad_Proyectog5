@@ -20,7 +20,7 @@ export class DatabaseService {
     const token = this.getToken()
     if (token) {
       return new HttpHeaders({
-        'Authorization': `Bearer ${token}  `,
+        'Authorization': `Bearer ${token}`,
         'Content-Type' : 'application/json'
       });
     }else{
@@ -54,7 +54,7 @@ export class DatabaseService {
   }
 
   // Nuevo método para iniciar sesión
-  iniciarSesion(credentials: any): Observable<any> {
+  login(credentials: any): Observable<any> {
     const headers = this.createHeaders();
     return this.http.post(`${this.apiUrl}?entity=auth`, credentials, {headers});
   }
