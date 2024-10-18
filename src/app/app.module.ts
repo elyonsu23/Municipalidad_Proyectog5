@@ -6,9 +6,9 @@ import { AppComponent } from './app.component';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 
+
 // COMPONENTE GLOBAL
 import { SharedModule } from './modules/shared/shared.module';
-
 
 @NgModule({
   declarations: [
@@ -23,10 +23,10 @@ import { SharedModule } from './modules/shared/shared.module';
     // COMPONENTE GLOBAL
     SharedModule,
     BrowserAnimationsModule,
-    HttpClientModule,
-   
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+ }
