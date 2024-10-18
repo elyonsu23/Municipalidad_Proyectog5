@@ -21,6 +21,12 @@ const routes: Routes = [
   },
   {
     path:"",loadChildren:()=>import('./modules/inicio/inicio.module').then(m=>m.InicioModule)
+  },
+  {
+    path:"",loadChildren:()=>import('./modules/configuracion/configuracion.module').then(m=>m.ConfiguracionModule)
+  },
+  {
+    path:"",loadChildren:()=>import('./modules/movimientos/movimientos.module').then(m=>m.MovimientosModule)
   }
 ];
 
