@@ -26,6 +26,7 @@ export class LoginComponent {
   login(): void {
     if (this.loginForm.valid) {
       const credentials = this.loginForm.value;
+      console.log(credentials)
       this.databaseService.login(credentials).subscribe(
         (data: any) => {
           localStorage.setItem('token', data.token);

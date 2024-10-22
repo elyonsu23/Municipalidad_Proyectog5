@@ -56,7 +56,7 @@ export class DatabaseService {
   // Nuevo método para iniciar sesión
   login(credentials: any): Observable<any> {
     const headers = this.createHeaders();
-    return this.http.post(`${this.apiUrl}?entity=auth`, credentials, {headers});
+    return this.http.post(`${this.apiUrl}?entity=login`, credentials, {headers});
   }
    
   // Método para crear un nuevo grupo (POST)
