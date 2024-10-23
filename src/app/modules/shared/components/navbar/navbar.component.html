@@ -18,7 +18,21 @@
                 <button mat-menu-item routerLink="/grupos">Grupos</button>
                 <button mat-menu-item routerLink="/funciones">Funciones</button>
             </mat-menu>
+
+            <mat-icon>settings</mat-icon>
+            <button id="menuProducto" mat-button [matMenuTriggerFor]="configuracion">Configuración</button>
+            <mat-menu #configuracion="matMenu">
+                <button mat-menu-item routerLink="/participantes">Participantes</button>
+                <button mat-menu-item routerLink="/circuitos">Circuitos</button>
+            </mat-menu>
+
+            <mat-icon>directions_run</mat-icon>
+            <button id="menuProducto" mat-button [matMenuTriggerFor]="movimientos">Movimientos</button>
+            <mat-menu #movimientos="matMenu">
+                <button mat-menu-item routerLink="/competencias">Competencias</button>
+            </mat-menu>
             
+            <span class="example-spacer"></span>
 
             <mat-icon>logout</mat-icon>
             <button mat-button routerLink="/login">Salir</button>
