@@ -25,20 +25,27 @@ export class LoginComponent {
   }
   login(): void {
     if (this.loginForm.valid) {
-      const credentials = this.loginForm.value;
-      console.log(credentials)
-      this.databaseService.login(credentials).subscribe(
-        (data: any) => {
-          localStorage.setItem('token', data.token);
-          this.router.navigate(['/inicio']);  // Redirigir después de iniciar sesión
-        },
-        (error) => {
-          this.errorMessage = 'Error al iniciar sesión. Verifique sus credenciales';
-          console.error('Login failed', error);
-        }
-      );
+        const credentials = this.loginForm.value;
+        console.log(credentials);
+        this.databaseService.login(credentials).subscribe({
+            next: (data: any) => {
+                if (data.token) {
+                    localStorage.setItem('token', data.token);
+                    
+                    this.router.navigate(['/inicio']);  // Redirigir después de iniciar sesión
+                } else {
+                    this.errorMessage = data.message || 'Credenciales inválidas';
+                    console.error('Login failed', this.errorMessage);
+                }
+            },
+            error: (error) => {
+                this.errorMessage = error.error?.message || 'Error al iniciar sesión. Verifique sus credenciales';
+                console.error('Login failed', error);
+            }
+        });
     }
-  }
+}
+
   
   
 }
