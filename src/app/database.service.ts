@@ -82,4 +82,37 @@ export class DatabaseService {
     const headers = this.createHeaders();
     return this.http.put(`${this.apiUrl}?entity=groups&id=${idGrupo}`, grupo, {headers});
   }
+
+
+
+
+
+
+
+
+ // Método para crear un nuevo circuito (POST)
+ altaCircuito(circuitoData: any): Observable<any> {
+  const headers = this.createHeaders();
+  return this.http.post(`${this.apiUrl}?entity=circuitos`, circuitoData, {headers});
+}
+
+// Método para recuperar todos los circuito desde la base de datos (GET)
+recuperarCircuitos(): Observable<any> {
+  const headers = this.createHeaders();
+  return this.http.get(`${this.apiUrl}?entity=circuitos`);
+}
+
+// Método para eliminar un circuito de la base de datos (DELETE)
+bajaCircuito(Id_Circuitos: number): Observable<any> {
+  const headers = this.createHeaders();
+  return this.http.delete(`${this.apiUrl}?entity=circuitos&id=${Id_Circuitos}`, {headers});
+}
+
+// Método para modificar un circuito existente en la base de datos (PUT)
+modificarCircuito(circuito: any, Id_Circuitos: any): Observable<any> {
+  const headers = this.createHeaders();
+  return this.http.put(`${this.apiUrl}?entity=circuitos&id=${Id_Circuitos}`, circuito, {headers});
+}
+
+
 }

@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 // COMPONENTE GLOBAL
 import { SharedModule } from './modules/shared/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { SharedModule } from './modules/shared/shared.module';
     // COMPONENTE GLOBAL
     SharedModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

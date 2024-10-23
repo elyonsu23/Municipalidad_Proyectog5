@@ -1,1 +1,120 @@
-<p>circuitos works!</p>
+<div class="divPadre">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createCircuito">Agregar</button>
+    <table class="borde tablaPadre">
+        <thead class="borde">
+            <tr class="borde">
+                <th class="borde">ID</th>
+                <th class="borde">NOMBRE</th>
+                <th class="borde">DESCRIPCIÓN</th>
+                <th class="borde">UBICACIÓN</th>
+                <th class="borde">ID MAPA GOOGLE</th>
+                <th class="borde">DISTANCIA H</th>
+                <th class="borde">ACCIONES</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="borde" *ngFor="let circuito of circuitos">
+                <td class="borde">{{ circuito.Id_Circuitos }}</td>
+                <td class="borde">{{ circuito.Nombre_Circuito }}</td>
+                <td class="borde">{{ circuito.Descripcion }}</td>
+                <td class="borde">{{ circuito.Ubicacion }}</td>
+                <td class="borde">{{ circuito.Id_MapaGoogle }}</td>
+                <td class="borde"> {{ circuito.Distancia_H | number:'1.2-2' }}</td>
+                <td>
+                    <button class="edit" (click)="editarCircuito(circuito)" data-bs-target="#editCircuito" data-bs-toggle="modal">Modificar</button>
+                    <button class="delete" (click)="bajaCircuito(circuito.Id_Circuitos)">Borrar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Modal para crear circuito -->
+    <div class="modal fade" id="createCircuito" tabindex="-1" aria-labelledby="createCircuitoLabel" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen-sm-down">
+            <div class="modal-content m">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createCircuitoLabel">Crear Circuito</h5>
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="circuitoForm" (ngSubmit)="submitForm()">
+                        <div>
+                            <label for="Nombre_Circuito">Nombre:</label>
+                            <input id="Nombre_Circuito" formControlName="Nombre_Circuito" type="text" />
+                            <div *ngIf="circuitoForm.get('Nombre_Circuito')?.invalid && circuitoForm.get('Nombre_Circuito')?.touched">
+                                Nombre es requerido
+                            </div>
+                        </div>
+                        <div>
+                            <label for="Descripcion">Descripción:</label>
+                            <input id="Descripcion" formControlName="Descripcion" type="text" />
+                            <div *ngIf="circuitoForm.get('Descripcion')?.invalid && circuitoForm.get('Descripcion')?.touched">
+                                Descripción es requerida
+                            </div>
+                        </div>
+                        <div>
+                            <label for="Ubicacion">Ubicación:</label>
+                            <input id="Ubicacion" formControlName="Ubicacion" type="text" />
+                            <div *ngIf="circuitoForm.get('Ubicacion')?.invalid && circuitoForm.get('Ubicacion')?.touched">
+                                Ubicación es requerida
+                            </div>
+                        </div>
+                        <div>
+                            <label for="Id_MapaGoogle">ID de Mapa Google:</label>
+                            <input id="Id_MapaGoogle" formControlName="Id_MapaGoogle" type="text" />
+                            <div *ngIf="circuitoForm.get('Id_MapaGoogle')?.invalid && circuitoForm.get('Id_MapaGoogle')?.touched">
+                                ID de Mapa Google es requerido
+                            </div>
+                        </div>
+                        <div>
+                            <label for="Distancia_H">Distancia Horizontal:</label>
+                            <input id="Distancia_H" formControlName="Distancia_H" type="number" step="0.01"/>
+                            <div *ngIf="circuitoForm.get('Distancia_H')?.invalid && circuitoForm.get('Distancia_H')?.touched">
+                                Distancia Horizontal es requerida
+                            </div>
+                        </div>
+                        <button type="submit" [disabled]="circuitoForm.invalid">Enviar</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para editar circuito -->
+    <div class="modal fade" id="editCircuito" tabindex="-1" aria-labelledby="editCircuitoLabel" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen-sm-down">
+            <div class="modal-content m">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editCircuitoLabel">Modificar Circuito</h5>
+                </div>
+                <div class="modal-body">
+                    <form *ngIf="circuitoSeleccionado" [formGroup]="modificarCircuitoForm" (ngSubmit)="submitModificarForm()">
+                        <div>
+                            <label for="modificarNombre_Circuito">Nombre:</label>
+                            <input id="modificarNombre_Circuito" formControlName="Nombre_Circuito" type="text" />
+                        </div>
+                        <div>
+                            <label for="modificarDescripcion">Descripción:</label>
+                            <input id="modificarDescripcion" formControlName="Descripcion" type="text" />
+                        </div>
+                        <div>
+                            <label for="modificarUbicacion">Ubicación:</label>
+                            <input id="modificarUbicacion" formControlName="Ubicacion" type="text" />
+                        </div>
+                        <div>
+                            <label for="modificarId_MapaGoogle">ID de Mapa Google:</label>
+                            <input id="modificarId_MapaGoogle" formControlName="Id_MapaGoogle" type="text" />
+                        </div>
+                        <div>
+                            <label for="modificarDistancia_H">Distancia Horizontal:</label>
+                            <input id="modificarDistancia_H" formControlName="Distancia_H" type="number" step="0.01" />
+                        </div>
+                        <button type="submit" [disabled]="modificarCircuitoForm.invalid" data-bs-dismiss="modal">Guardar Cambios</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
