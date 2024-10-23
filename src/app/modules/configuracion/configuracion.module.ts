@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { ReactiveFormsModule } from '@angular/forms';
 import { ConfiguracionRoutingModule } from './configuracion-routing.module';
 import { CircuitosComponent } from './pages/circuitos/circuitos.component';
 import { ParticipantesComponent } from './pages/participantes/participantes.component';
-
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -13,7 +13,9 @@ import { ParticipantesComponent } from './pages/participantes/participantes.comp
   ],
   imports: [
     CommonModule,
-    ConfiguracionRoutingModule
+    ConfiguracionRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule
   ]
 })
 export class ConfiguracionModule { }

@@ -54,7 +54,7 @@ export class GruposComponent implements OnInit  {
           }
         },
         error: (error) => {
-          alert('Error al modificar usuario');
+          alert('Error al modificar grupo');
           console.log(grupoModificado)
           console.error('Error:', error);
         },

@@ -1,1 +1,123 @@
-<p>participantes works!</p>
+<div class="divPadre"> 
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createParticipante">
+        Agregar
+    </button>
+    <table class="borde tablaPadre">
+        <thead class="borde">
+            <tr class="borde">
+                <th class="borde">ID</th>
+                <th class="borde">APELLIDO Y NOMBRE</th>
+                <th class="borde">DNI</th>
+                <th class="borde">DIRECCION</th>
+                <th class="borde">TELEFONO</th>
+                <th class="borde">MAIL</th>
+                <th class="borde">ACCIONES</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="borde" *ngFor="let participante of participantes">
+                <td class="borde">{{ participante.Id_Participante }}</td>
+                <td class="borde">{{ participante.Apellido_Nombre }}</td>
+                <td class="borde">{{ participante.DNI }}</td>
+                <td class="borde">{{ participante.Direccion }}</td>
+                <td class="borde">{{ participante.Telefono }}</td>
+                <td class="borde">{{ participante.Mail }}</td>
+              
+                <td>
+                    <button class="edit" (click)="editarParticipante(participante)" data-bs-target="#editParticipante" data-bs-toggle="modal">Modificar</button>
+                    <button class="delete" (click)="bajaParticipantes(participante.Id_Participante)" >Borrar</button>
+                   
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Modal para crear usuario -->
+    <div class="modal fade " id="createParticipante" tabindex="-1" aria-labelledby="createParticipanteLabel" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen-sm-down ">
+            <div class="modal-content m">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createParticipantelLabel">Crear Usuario</h5>
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="participanteForm" (ngSubmit)="submitForm()">
+                        <div>
+                            <label for="Apellido_Nombre">Apellido y Nombre:</label>
+                            <input id="Apellido_Nombre" formControlName="Apellido_Nombre" type="text" />
+                            <div *ngIf="participanteForm.get('Apellido_Nombre')?.invalid && participanteForm.get('Apellido_Nombre')?.touched">
+                                Apellido y Nombre es requerido
+                            </div>
+
+                            <label for="DNI">DNI:</label>
+                            <input id="DNI" formControlName="DNI" type="text" />
+                            <div *ngIf="participanteForm.get('DNI')?.invalid && participanteForm.get('DNI')?.touched">
+                                DNI es requerido
+                            </div>
+
+                            <label for="Direccion">Direccion:</label>
+                            <input id="Direccion" formControlName="Direccion" type="text" />
+                            <div *ngIf="participanteForm.get('Direccion')?.invalid && participanteForm.get('Direccion')?.touched">
+                                Direccion es requerida
+                            </div>
+
+                            <label for="Telefono">Telefono:</label>
+                            <input id="Telefono" formControlName="Telefono" type="text" />
+                            <div *ngIf="participanteForm.get('Telefono')?.invalid && participanteForm.get('Telefono')?.touched">
+                                Telefono es requerido
+                            </div>
+
+                            <label for="Mail">Mail:</label>
+                            <input id="Mail" formControlName="Mail" type="email" />
+                            <div *ngIf="participanteForm.get('Mail')?.invalid && participanteForm.get('Mail')?.touched">
+                                Mail es requerido
+                            </div>
+                        </div>
+
+                        
+
+                        <button type="submit" [disabled]="participanteForm.invalid">Enviar</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade " id="editParticipante" tabindex="-1" aria-labelledby="editParticipanteLabel" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen-sm-down ">
+            <div class="modal-content m">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editParticipanteLabel">Modificar Usuario</h5>
+                </div>
+                <div class="modal-body">
+                    <form *ngIf="participanteSeleccionado" [formGroup]="modificarParticipanteForm" (ngSubmit)="submitModificarForm()">
+                        <div>
+                            <label for="modificarNombre">Apellido y Nombre:</label>
+                            <input id="modificarNombre" formControlName="Apellido_Nombre" type="text" />
+
+                            <label for="modificarDNI">DNI:</label>
+                            <input id="modificarDNI" formControlName="DNI" type="text" />
+
+                            <label for="modificarDireccion">Direccion:</label>
+                            <input id="modificarDireccion" formControlName="Direccion" type="text" />
+
+                            <label for="modificarTelefono">Telefono:</label>
+                            <input id="modificarTelefono" formControlName="Telefono" type="text" />
+
+                            <label for="modificarMail">Mail:</label>
+                            <input id="modificarMail" formControlName="Mail" type="email" />
+                        </div>
+                
+                       
+                
+                        <button type="submit" [disabled]="modificarParticipanteForm.invalid" data-bs-dismiss="modal">Guardar Cambios</button>
+                    </form>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
