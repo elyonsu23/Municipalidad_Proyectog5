@@ -1,79 +1,85 @@
-import { Injectable } from '@angular/core';  // Importa el decorador Injectable para hacer que el servicio sea inyectable
-import { HttpClient } from '@angular/common/http';  // Importa HttpClient para hacer peticiones HTTP
-import { Observable } from 'rxjs';  // Importa Observable para manejar las respuestas asincrónicas
-
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'  // Indica que este servicio estará disponible de manera global en la aplicación
+  providedIn: 'root'
 })
 export class DatabaseService {
 
   // URL base de la API en el backend
-  private apiUrl = 'http://localhost/apiviernes/public/index.php'; 
+  private apiUrl = 'http://localhost/apiviernes/public/index.php';
 
-  constructor(private http: HttpClient) { }  // Inyecta HttpClient para usarlo en las peticiones
+  constructor(private http: HttpClient) { }
 
+  private getToken(): string | null{
+    return localStorage.getItem('token')
+  }
+
+   private createHeaders(){
+    const token = this.getToken()
+    if (token) {
+      return new HttpHeaders({
+        'Authorization': `Bearer ${token}`,
+        'Content-Type' : 'application/json'
+      });
+    }else{
+      return new HttpHeaders({
+         'Content-Type' : 'application/json'
+      })
+    }   }
 
   // Método para crear un nuevo usuario en la base de datos (POST)
   alta(usuarioData: any): Observable<any> {
-    // Envía una solicitud POST a la URL 'http://localhost/apiviernes/public/index.php/users'
-    // con los datos del usuario en el cuerpo de la solicitud
-    return this.http.post(`${this.apiUrl}/users`, usuarioData);
+    const headers = this.createHeaders();
+    return this.http.post(`${this.apiUrl}?entity=users`, usuarioData, {headers});
   }
 
   // Método para recuperar todos los usuarios desde la base de datos (GET)
   recuperarUsuarios(): Observable<any> {
-    // Envía una solicitud GET a la URL 'http://localhost/apiviernes/public/index.php/users'
-    // para obtener la lista de usuarios
-    return this.http.get(`${this.apiUrl}/users`);
+    const headers = this.createHeaders();
+    return this.http.get(`${this.apiUrl}?entity=users`, {headers});
   }
-  
-  
 
   // Método para eliminar un usuario de la base de datos (DELETE)
   baja(userId: number): Observable<any> {
-    // Envía una solicitud DELETE a la URL 'http://localhost/apiviernes/public/index.php/users'
-    // pasando el userId como un parámetro en la URL
-    return this.http.delete(`${this.apiUrl}/users?userId=${userId}`);
+    const headers = this.createHeaders();
+    return this.http.delete(`${this.apiUrl}?entity=users&id=${userId}`,{headers});
   }
-  
+
   // Método para modificar un usuario existente en la base de datos (PUT)
   modificar(usuario: any, userId: any): Observable<any> {
-    // Envía una solicitud PUT a la URL 'http://localhost/apiviernes/public/index.php/users'
-    // pasando el userId como parámetro en la URL, y los datos del usuario en el cuerpo de la solicitud
-    return this.http.put(`${this.apiUrl}/users?userId=${userId}`, usuario);
+    const headers = this.createHeaders();
+    return this.http.put(`${this.apiUrl}?entity=users&id=${userId}`, usuario, {headers});
   }
 
   // Nuevo método para iniciar sesión
-  iniciarSesion(credentials: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/users?action=login`, credentials);
+  login(credentials: any): Observable<any> {
+    const headers = this.createHeaders();
+    return this.http.post(`${this.apiUrl}?entity=login`, credentials, {headers});
   }
-
+   
   // Método para crear un nuevo grupo (POST)
   altaGrupo(grupoData: any): Observable<any> {
-    // Envía una solicitud POST a la URL 'http://localhost/apiviernes/public/index.php/groups'
-    // con los datos del grupo en el cuerpo de la solicitud
-    return this.http.post(`${this.apiUrl}/groups`, grupoData);
+    const headers = this.createHeaders();
+    return this.http.post(`${this.apiUrl}?entity=groups`, grupoData, {headers});
   }
 
   // Método para recuperar todos los grupos desde la base de datos (GET)
   recuperarGrupos(): Observable<any> {
-    // Envía una solicitud GET a la URL 'http://localhost/apiviernes/public/index.php/groups'
-    // para obtener la lista de grupos
-    return this.http.get(`${this.apiUrl}/groups`);
+    const headers = this.createHeaders();
+    return this.http.get(`${this.apiUrl}?entity=groups`);
   }
 
   // Método para eliminar un grupo de la base de datos (DELETE)
   bajaGrupo(idGrupo: number): Observable<any> {
-    // Envía una solicitud DELETE a la URL 'http://localhost/apiviernes/public/index.php/groups'
-    // pasando el idGrupo como parámetro en la URL
-    return this.http.delete(`${this.apiUrl}/groups?idGrupo=${idGrupo}`);
+    const headers = this.createHeaders();
+    return this.http.delete(`${this.apiUrl}?entity=groups&id=${idGrupo}`, {headers});
   }
 
   // Método para modificar un grupo existente en la base de datos (PUT)
   modificarGrupo(grupo: any, idGrupo: any): Observable<any> {
-    // Envía una solicitud PUT a la URL 'http://localhost/apiviernes/public/index.php/groups'
-    // pasando el groupId como parámetro en la URL, y los datos del grupo en el cuerpo de la solicitud
-    return this.http.put(`${this.apiUrl}/groups?idGrupo=${idGrupo}`, grupo);
+    const headers = this.createHeaders();
+    return this.http.put(`${this.apiUrl}?entity=groups&id=${idGrupo}`, grupo, {headers});
   }
 }

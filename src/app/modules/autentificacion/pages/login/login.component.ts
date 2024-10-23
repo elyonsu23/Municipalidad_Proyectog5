@@ -3,6 +3,7 @@ import { DatabaseService } from 'src/app/database.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router'
 
+import { Observable } from 'rxjs'
 
 @Component({
   selector: 'app-login',
@@ -22,38 +23,29 @@ export class LoginComponent {
       password: ['', Validators.required],
     });
   }
+  login(): void {
+    if (this.loginForm.valid) {
+        const credentials = this.loginForm.value;
+        console.log(credentials);
+        this.databaseService.login(credentials).subscribe({
+            next: (data: any) => {
+                if (data.token) {
+                    localStorage.setItem('token', data.token);
+                    
+                    this.router.navigate(['/inicio']);  // Redirigir después de iniciar sesión
+                } else {
+                    this.errorMessage = data.message || 'Credenciales inválidas';
+                    console.error('Login failed', this.errorMessage);
+                }
+            },
+            error: (error) => {
+                this.errorMessage = error.error?.message || 'Error al iniciar sesión. Verifique sus credenciales';
+                console.error('Login failed', error);
+            }
+        });
+    }
+}
 
   
-
-  onSubmit() {
-    console.log('Formulario enviado'); 
-    if (this.loginForm.valid) {
-      console.log('Formulario válido', this.loginForm.value); 
-      this.databaseService.iniciarSesion(this.loginForm.value).subscribe({
-        next: (response) => {
-          console.log('Respuesta del servidor', response); // Agregado
-          if (response && response.resultado === 'OK') {
-            this.router.navigate(['/inicio']);
-            // Manejar el inicio de sesión exitoso
-          } else {
-            this.errorMessage = 'Credenciales incorrectas';
-          }
-        },
-        error: (error) => {
-          this.errorMessage = 'Error al intentar iniciar sesión';
-          console.error('Error:', error);
-        }
-      });
-    } else {
-      console.log('Formulario no válido'); // Agregado
-      Object.keys(this.loginForm.controls).forEach(key => {
-        const controlErrors = this.loginForm.get(key)?.errors;
-        if (controlErrors != null) {
-          Object.keys(controlErrors).forEach(errorKey => {
-            console.log('Key control: ' + key + ', error: ' + errorKey + ', value: ', controlErrors[errorKey]);
-          });
-        }
-      });
-    }
-  }
+  
 }
